@@ -27,4 +27,20 @@ attr_reader :name,
   def admit(patron)
     @patrons << patron
   end
+
+  def patrons_by_exhibit_interest
+    result = {}
+    @exhibits.each do |exhibit|
+      @patrons.each do |patron|
+        patron.interests.each do |interest|
+          if exhibit.name == patron.interests
+            result[exhibit] << patron
+          else
+            result[exhibit] = [patron]
+          end
+        end
+      end
+    end
+    result
+  end
 end
