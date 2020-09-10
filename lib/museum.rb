@@ -23,4 +23,8 @@ attr_reader :name,
     end
     result
   end
+
+  def admit(patron)
+    @patrons << patron
+  end
 end
