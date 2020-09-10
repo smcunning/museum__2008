@@ -32,15 +32,26 @@ attr_reader :name,
     result = {}
     @exhibits.each do |exhibit|
       @patrons.each do |patron|
-        patron.interests.each do |interest|
-          if exhibit.name == patron.interests
+          if patron.interests.include?(exhibit.name)
             result[exhibit] << patron
           else
             result[exhibit] = [patron]
           end
         end
       end
+      result
     end
-    result
+  
+  def ticket_lottery_contestants(exhibit)
+    result = []
+    patrons_by_exhibit_interest[exhibit].each do |patrons|
+        patrons.each do |patron|
+          if exhibit.cost > patron.spending_money
+            result << patron
+          end
+        end
+      end
+      result
   end
+
 end

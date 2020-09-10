@@ -88,7 +88,7 @@ class MuseumTest < Minitest::Test
     dmns.add_exhibit(dead_sea_scrolls)
     dmns.add_exhibit(imax)
 
-    patron_1 = Patron.new("Bob", 20)
+    patron_1 = Patron.new("Bob", 0)
     patron_1.add_interest("Dead Sea Scrolls")
     patron_1.add_interest("Gems and Minerals")
 
@@ -102,9 +102,9 @@ class MuseumTest < Minitest::Test
     dmns.admit(patron_2)
     dmns.admit(patron_3)
 
-    expected = {:gems_and_minerals => [patron_1],
-                :dead_sea_scrolls => [patron_1, patron_2, patron_3],
-                :imax => []
+    expected = {gems_and_minerals => [patron_1],
+                dead_sea_scrolls => [patron_1, patron_2, patron_3],
+                imax => []
               }
     assert_equal expected, dmns.patrons_by_exhibit_interest
   end
@@ -133,6 +133,10 @@ class MuseumTest < Minitest::Test
     dmns.admit(patron_2)
     dmns.admit(patron_3)
 
-    assert_equal [patron_1, patron_3], dmns.ticket_lottery_contestants(dead_sea_scrolls)  
+    assert_equal [patron_1, patron_3], dmns.ticket_lottery_contestants(dead_sea_scrolls)
+    assert_equal "Johnny" || "Bob", dmns.draw_lottery_winner(dead_sea_scrolls)
   end
+
+
+
 end
